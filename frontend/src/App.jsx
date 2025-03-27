@@ -4,6 +4,7 @@ import "./App.css";
 import Dashboard from "./components/Dashboard";
 import { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
+import NotFound from './components/NotFound';
 
 function App() {
   const [isLogin, setIsLogin] = useState(localStorage.getItem("isLogin")==="true");
@@ -24,6 +25,7 @@ function App() {
           path='/dashboard'
           element={isLogin ? <Dashboard setIsLogin={setIsLogin} /> : <Navigate to={"/"} />}
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
