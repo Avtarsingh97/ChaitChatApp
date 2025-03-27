@@ -24,29 +24,32 @@ function Login({ funcSetLogin, setIsLogin }) {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await axios
-      .post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`, inputField, { withCredentials: true })
-      .then((response) => {
-        if (response && response.data) {
-          let userInfo = response.data.user;
-          console.log("User Info:", userInfo); // Debugging User Info
+    try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/api/auth/login`, 
+      inputField, 
+      { withCredentials: true }
+    );
 
-          localStorage.setItem("userInfo", JSON.stringify(userInfo));
-          localStorage.setItem("isLogin", true);
-          setIsLogin(true);
-          navigate("/dashboard");
-      } else {
-          throw new Error("No user data received from API");
-      }
-      })
-      .catch((err) => {
-        console.log(err);
-        let errorMsg = err.response?.data?.error || "Login failed. Please try again.";
-        toast.error(errorMsg);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    if (!response.data || !response.data.user) {
+      throw new Error("Invalid API response. No user data received.");
+    }
+
+    const userInfo = response.data.user;
+    console.log("User Info:", userInfo); // Debugging User Info
+
+    localStorage.setItem("userInfo", JSON.stringify(userInfo));
+    localStorage.setItem("isLogin", "true");
+    setIsLogin(true);
+    navigate("/dashboard");
+
+  } catch (err) {
+    console.error("Login Error:", err);
+    let errorMsg = err.response?.data?.error || "Login failed. Please try again.";
+    toast.error(errorMsg);
+  } finally {
+    setLoading(false);
+  }
   };
 
   return (
