@@ -16,7 +16,10 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server,{
     cors:{
-        origin : process.env.BASE_URL || "*",
+        origin : [
+    "http://localhost:5173",
+    "https://chait-chat-app-frontend.vercel.app"
+],
         credentials : true
     }
 })
@@ -25,7 +28,10 @@ require('./Database/connection');
 
 //Middleware
 app.use(cors({
-    origin : process.env.BASE_URL || "*",
+    origin : [
+    "http://localhost:5173",
+    "https://chait-chat-app-frontend.vercel.app"
+],
     credentials : true
 }));
 app.use(express.json());
