@@ -8,8 +8,8 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET || "It's my secret key";
 
 const cookieOptions = {
     httpOnly:true,
-    secure:true,
-    sameSite:true
+    secure:process.env.NODE_ENV === "production",
+    sameSite:"None"
 }
 
 // Register User
