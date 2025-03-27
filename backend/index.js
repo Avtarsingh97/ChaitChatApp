@@ -16,7 +16,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server,{
     cors:{
-        origin : process.env.BASE_URL,
+        origin : process.env.BASE_URL || "*",
         credentials : true
     }
 })
@@ -25,7 +25,7 @@ require('./Database/connection');
 
 //Middleware
 app.use(cors({
-    origin : process.env.BASE_URL,
+    origin : process.env.BASE_URL || "*",
     credentials : true
 }));
 app.use(express.json());
