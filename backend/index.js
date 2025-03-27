@@ -35,6 +35,12 @@ const io = new Server(server, {
    
 });
 
+io.use((socket, next) => {
+    socket.handshake.headers["Access-Control-Allow-Origin"] = "https://chait-chat-app-frontend.vercel.app";
+    socket.handshake.headers["Access-Control-Allow-Credentials"] = "true";
+    next();
+});
+
 require('./Database/connection');
 
 app.use(cookieParser());
