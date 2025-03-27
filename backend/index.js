@@ -8,14 +8,14 @@ const dotenv = require("dotenv");
 // Load environment variables
 dotenv.config();
 const PORT = process.env.PORT || 8000;
-const BASE_URL = process.env.BASE_URL || "http://localhost:5173";
+
 
 const app = express();
 
 // Middleware
 app.use(cors({
-    origin: [BASE_URL],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: "https://chait-chat-app-frontend.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
 }));
@@ -29,8 +29,8 @@ const server = http.createServer(app);
 // Socket.IO Setup
 const io = new Server(server, {
     cors: {
-        origin: [BASE_URL],
-        methods: ["GET", "POST", "PUT", "DELETE"],
+        origin: "https://chait-chat-app-frontend.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         credentials: true
     },
     transports: ["websocket", "polling"],
@@ -69,10 +69,10 @@ io.on("connection", (socket) => {
 
 // Default Route
 app.get("/", (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", BASE_URL);
+    res.setHeader("Access-Control-Allow-Origin", "https://chait-chat-app-frontend.vercel.app");
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
     
     return res.status(200).json({ message: "Server started" });
 });
