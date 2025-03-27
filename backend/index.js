@@ -78,13 +78,14 @@ io.on('connection',(socket)=>{
 })
 
 // Default Route
-app.use("/", (req,res)=>{
+app.use("/", (req,res,next)=>{
     res.status(200).json({message : "Server started"});
     res.setHeader("Access-Control-Allow-Origin", process.env.BASE_URL)
 res.setHeader("Access-Control-Allow-Credentials", "true");
 res.setHeader("Access-Control-Max-Age", "1800");
 res.setHeader("Access-Control-Allow-Headers", "content-type");
 res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" );
+    next();
 })
 
 // Start Server
