@@ -30,6 +30,7 @@ function Login({ funcSetLogin, setIsLogin }) {
       inputField, 
       { withCredentials: true }
     );
+      console.log(repsonse);
 
     if (!response.data || !response.data.user) {
       throw new Error("Invalid API response. No user data received.");
