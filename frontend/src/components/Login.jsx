@@ -3,6 +3,7 @@ import axios from "axios";
 import Loader from "./Loader/Loader";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Logo from '../assets/Logo.webp';
 
 function Login({ funcSetLogin, setIsLogin }) {
   const [inputField, setInputField] = useState({ mobileNumber: "", password: "" });
@@ -25,7 +26,7 @@ function Login({ funcSetLogin, setIsLogin }) {
 
     setLoading(true);
     await axios
-      .post("http://localhost:8000/api/auth/login", inputField, { withCredentials: true })
+      .post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`, inputField, { withCredentials: true })
       .then((response) => {
         let userInfo = response.data.user;
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
@@ -47,7 +48,7 @@ function Login({ funcSetLogin, setIsLogin }) {
       <div className='w-full flex flex-col justify-center items-center box-border'>
         <div className='relative mt-5'>
           <img
-            src='/src/assets/Logo.webp'
+            src={Logo}
             alt='logo'
             className='w-[50%] m-auto'
           />

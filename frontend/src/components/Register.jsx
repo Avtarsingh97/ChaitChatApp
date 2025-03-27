@@ -3,6 +3,7 @@ import ProfileSelector from "./ProfileSelector";
 import axios from "axios";
 import Loader from "./Loader/Loader";
 import { toast } from "react-toastify";
+import Logo from '../assets/Logo.webp';
 
 function Register({ funcSetLogin }) {
   const [loading, setLoading] = useState(false);
@@ -11,8 +12,7 @@ function Register({ funcSetLogin }) {
     mobileNumber: "",
     name: "",
     password: "",
-    profilePic:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdaxkxnMrakMtywgSFKKcPo1pmpNJQe2KtvaZUca9Fb0JkkPbRx1P2A-FEXQWLYV9lyT8&usqp=CAU",
+    profilePic: "",
   });
 
   const handleClickLogin = () => {
@@ -62,7 +62,7 @@ function Register({ funcSetLogin }) {
     setLoading(true);
 
     await axios
-      .post("http://localhost:8000/api/auth/register", inputField)
+      .post(`${import.meta.env.VITE_BASE_URL}/api/auth/register`, inputField)
       .then((response) => {
         toast.success("Registration successful!");
         funcSetLogin(true);
@@ -81,7 +81,7 @@ function Register({ funcSetLogin }) {
       <div className='w-full flex flex-col justify-center items-center box-border'>
         <div className='relative mt-5'>
           <img
-            src='/src/assets/Logo.webp'
+            src={Logo}
             alt='logo'
             className='w-[50%] m-auto'
           />

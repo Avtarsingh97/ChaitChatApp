@@ -4,19 +4,19 @@ const cors = require('cors');
 const http = require('http');
 const {Server} = require('socket.io');
 const dotenv = require('dotenv');
-const path = require('path');
+
 
 // env variables
 dotenv.config();
 const PORT = process.env.PORT || 8000;
 const app = express();
 
-const _dirname = path.resolve();
+
 
 const server = http.createServer(app);
 const io = new Server(server,{
     cors:{
-        origin : process.env.BASE_URL || "*",
+        origin : process.env.BASE_URL,
         credentials : true
     }
 })
@@ -25,7 +25,7 @@ require('./Database/connection');
 
 //Middleware
 app.use(cors({
-    origin : process.env.BASE_URL || "*",
+    origin : process.env.BASE_URL,
     credentials : true
 }));
 app.use(express.json());
@@ -61,10 +61,9 @@ io.on('connection',(socket)=>{
     })
 })
 
-
-app.use(express.static(path.join(_dirname,"/frontend/dist")));
-app.get('*',(req,res) =>{
-    res.sendFile(path.resolve(_dirname,"frontend", "dist", "index.html"));
+// Default Route
+app.use("/", (req,res)=>{
+    res.status(200).json({message : "Server started"})
 })
 
 // Start Server

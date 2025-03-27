@@ -7,6 +7,7 @@ import Chats from "./Chats";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import socket from "../socket";
+import Logo from '../assets/Logo.webp';
 
 function Dashboard({ setIsLogin }) {
   const [selectedUserDetails, setSelectedUserDetail] = useState(null);
@@ -33,7 +34,7 @@ function Dashboard({ setIsLogin }) {
 
   let fetchConversation = async () => {
     await axios
-      .get("http://localhost:8000/api/conversation/get-conversation", { withCredentials: true })
+      .get(`${import.meta.env.VITE_BASE_URL}/api/conversation/get-conversation`, { withCredentials: true })
       .then((response) => {
         setConversation(response.data.conversations);
       })
@@ -47,7 +48,7 @@ function Dashboard({ setIsLogin }) {
 
   const fetchhUserBySearch = async () => {
     await axios
-      .get(`http://localhost:8000/api/auth/searchedMember?queryParam=${queryParam}`, { withCredentials: true })
+      .get(`${import.meta.env.VITE_BASE_URL}/api/auth/searchedMember?queryParam=${queryParam}`, { withCredentials: true })
       .then((response) => {
         setSearchData(response.data);
       })
@@ -80,7 +81,7 @@ function Dashboard({ setIsLogin }) {
 
   const handleLogout = async () => {
     await axios
-      .post("http://localhost:8000/api/auth/logout", {}, { withCredentials: true })
+      .post(`${import.meta.env.VITE_BASE_URL}/api/auth/logout`, {}, { withCredentials: true })
       .then((response) => {
         localStorage.clear();
         setIsLogin(false);
@@ -93,7 +94,7 @@ function Dashboard({ setIsLogin }) {
 
   const handleCreateConv = async (id) => {
     await axios
-      .post(`http://localhost:8000/api/conversation/add-conversation`, { receiverId: id }, { withCredentials: true })
+      .post(`${import.meta.env.VITE_BASE_URL}/api/conversation/add-conversation`, { receiverId: id }, { withCredentials: true })
       .then((response) => {
         // window.location.reload();
 
@@ -121,7 +122,7 @@ function Dashboard({ setIsLogin }) {
               {/* logo */}
               <div>
                 <img
-                  src='/src/assets/Logo.webp'
+                  src={Logo}
                   alt='logo'
                   className='w-[120px]'
                 />
@@ -229,7 +230,7 @@ function Dashboard({ setIsLogin }) {
                   {/* logo */}
                   <div>
                     <img
-                      src='/src/assets/Logo.webp'
+                      src={Logo}
                       alt='logo'
                       className='w-[120px]'
                     />

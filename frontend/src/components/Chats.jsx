@@ -11,7 +11,7 @@ function Chats(props) {
 
   const fetchMessages = async () => {
     await axios
-      .get(`http://localhost:8000/api/chat/get-message-chat/${props.selectedId}`, { withCredentials: true })
+      .get(`${import.meta.env.VITE_BASE_URL}/api/chat/get-message-chat/${props.selectedId}`, { withCredentials: true })
       .then((response) => {
         setChats(response.data.messages);
       })
@@ -30,7 +30,7 @@ function Chats(props) {
     if (content.trim().length === 0) return;
     await axios
       .post(
-        `http://localhost:8000/api/chat/post-message-chat`,
+        `${import.meta.env.VITE_BASE_URL}/api/chat/post-message-chat`,
         {
           conversation: props.selectedId,
           content: content,
