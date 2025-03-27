@@ -8,7 +8,7 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET || "It's my secret key";
 
 const cookieOptions = {
     httpOnly:true,
-    secure:process.env.NODE_ENV === "production",
+    secure:true,
     sameSite:true
 }
 
