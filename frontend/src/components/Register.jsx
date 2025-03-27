@@ -57,23 +57,25 @@ function Register({ funcSetLogin }) {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) return;
+  if (!validateForm()) return;
 
-    setLoading(true);
+  setLoading(true);
 
-    await axios
-      .post(`${import.meta.env.VITE_BASE_URL}/api/auth/register`, inputField)
-      .then((response) => {
-        toast.success("Registration successful!");
-        funcSetLogin(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error(err.response.data.error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/api/auth/register`,
+      inputField
+    );
+
+    toast.success("Registration successful!");
+    funcSetLogin(true); // Switch to login after successful registration
+  } catch (err) {
+    console.error("Registration Error:", err);
+    const errorMsg = err.response?.data?.error || "Registration failed. Please try again.";
+    toast.error(errorMsg);
+  } finally {
+    setLoading(false);
+  }
   };
 
   return (
