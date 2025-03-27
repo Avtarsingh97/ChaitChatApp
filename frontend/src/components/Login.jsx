@@ -23,19 +23,24 @@ function Login({ funcSetLogin, setIsLogin }) {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     setLoading(true);
     await axios
       .post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`, inputField, { withCredentials: true })
       .then((response) => {
-        let userInfo = response.data.user;
-        localStorage.setItem("userInfo", JSON.stringify(userInfo));
-        localStorage.setItem("isLogin", true);
-        setIsLogin(true);
-        navigate("/dashboard");
+        if (response && response.data) {
+          let userInfo = response.data.user;
+          console.log("User Info:", userInfo); // Debugging User Info
+
+          localStorage.setItem("userInfo", JSON.stringify(userInfo));
+          localStorage.setItem("isLogin", true);
+          setIsLogin(true);
+          navigate("/dashboard");
+      } else {
+          throw new Error("No user data received from API");
+      }
       })
       .catch((err) => {
-        let errorMsg = err.response.data.error;
+        let errorMsg = err.response?.data?.error || "Login failed. Please try again.";
         toast.error(errorMsg);
       })
       .finally(() => {
