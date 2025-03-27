@@ -11,14 +11,22 @@ dotenv.config();
 const PORT = process.env.PORT || 8000;
 const app = express();
 
-
+//Middleware
+app.use(cors({
+    origin : [
+    "http://localhost:5173",
+    process.env.BASE_URL
+],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials : true
+}));
 
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
         origin: [
-            "http://localhost:5173",  // Local Frontend
-            "https://chait-chat-app-frontend.vercel.app"  // Deployed Frontend
+            "http://localhost:5173",  
+            process.env.BASE_URL 
         ],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true
@@ -29,17 +37,9 @@ const io = new Server(server, {
 
 require('./Database/connection');
 
-//Middleware
-app.use(cors({
-    origin : [
-    "http://localhost:5173",
-    "https://chait-chat-app-frontend.vercel.app"
-],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials : true
-}));
-app.use(express.json());
 app.use(cookieParser());
+app.use(express.json());
+
 
 //Routes
 const UserRoutes = require('./Routes/user');
