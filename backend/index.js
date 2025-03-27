@@ -14,16 +14,17 @@ const app = express();
 
 
 const server = http.createServer(app);
-const io = new Server(server,{
-    cors:{
-        origin : [
-    "http://localhost:5173",
-    "https://chait-chat-app-frontend.vercel.app"
-],
+const io = new Server(server, {
+    cors: {
+        origin: [
+            "http://localhost:5173",  // Local Frontend
+            "https://chait-chat-app-frontend.vercel.app"  // Deployed Frontend
+        ],
         methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials : true
-    }
-})
+        credentials: true
+    },
+    transports: ["websocket", "polling"]  // Allow both WebSockets & Polling
+});
 
 require('./Database/connection');
 
