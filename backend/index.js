@@ -20,6 +20,7 @@ const io = new Server(server,{
     "http://localhost:5173",
     "https://chait-chat-app-frontend.vercel.app"
 ],
+        methods: ["GET", "POST", "PUT", "DELETE"],
         credentials : true
     }
 })
@@ -32,6 +33,7 @@ app.use(cors({
     "http://localhost:5173",
     "https://chait-chat-app-frontend.vercel.app"
 ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials : true
 }));
 app.use(express.json());
