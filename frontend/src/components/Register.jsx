@@ -12,7 +12,7 @@ function Register({ funcSetLogin }) {
     mobileNumber: "",
     name: "",
     password: "",
-    profilePic: "",
+    profilePic: "https://www.gravatar.com/avatar/?d=mp",
   });
 
   const handleClickLogin = () => {
