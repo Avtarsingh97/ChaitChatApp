@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import socket from "../socket";
 import Logo from '../assets/Logo.webp';
+import NoMessageImage from '../assets/NoMessageYet.webp'
 
 function Dashboard({ setIsLogin }) {
   const [selectedUserDetails, setSelectedUserDetail] = useState(null);
@@ -336,7 +337,7 @@ function Dashboard({ setIsLogin }) {
           <div className='w-full md:w-[70%] flex flex-col items-center justify-center'>
             <div className='w-full md:w-[70%]'>
               <img
-                src='/src/assets/NoMessageYet.webp'
+                src={NoMessageImage}
                 alt='No Chat UI Image'
                 className=' m-auto'
               />
