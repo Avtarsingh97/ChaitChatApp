@@ -40,6 +40,7 @@ function Login({ funcSetLogin, setIsLogin }) {
       }
       })
       .catch((err) => {
+        console.log(err);
         let errorMsg = err.response?.data?.error || "Login failed. Please try again.";
         toast.error(errorMsg);
       })
